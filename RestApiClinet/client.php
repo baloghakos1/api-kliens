@@ -5,7 +5,7 @@ use App\Interfaces\ClientInterface;
 use Exception;
 
 class Client implements ClientInterface {
-    const API_URL = 'http://localhost:8000';
+    const API_URL = "http://localhost:8000";
     protected $url
 
     function __construct($url = self::API_URL) 

@@ -14,7 +14,7 @@ abstract class AbstractPage implements PageInterface {
             <meta name="viewport"
                 content = "width=device-width, initial-scale=1">
 
-            <title>REST API ügyfél</title>
+            <title>Posta</title>
         ';
     }
 
@@ -39,23 +39,7 @@ abstract class AbstractPage implements PageInterface {
         ';
     }
 
-    static function SearchBar() {
-        echo '
-        <form method="post" action="">
-            <input
-                type="search"
-                name="needle"
-                placeholders="Keres"
-            >
-            <input
-                type="subnit"
-                id="btn-search"
-                name="btn-search"
-                title="Keres"
-            >
-        </form>
-        ';
-    }
+    
 
     abstract function tablehead();
 
