@@ -20,6 +20,20 @@ class Request
         }
     }
 
+    private static function getRequest(){
+        $request = $_REQUEST;
+        if(isset($request['page'])){
+            $page = $request['page'];
+            switch($page){
+                case 'counties':
+                    PageCounties::table(self::getCounties());
+                    break;
+                case 'cities':
+                    break;
+            }
+        }
+    }
+
     private static function postRequest()
     {
         $request = $_REQUEST;
