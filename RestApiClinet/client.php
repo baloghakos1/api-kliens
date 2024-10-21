@@ -6,7 +6,7 @@ use Exception;
 
 class Client implements ClientInterface {
     const API_URL = "http://localhost:8000";
-    protected $url
+    protected $url;
 
     function __construct($url = self::API_URL) 
     {
@@ -34,4 +34,51 @@ class Client implements ClientInterface {
 
         return json_decode($response, TRUE);
     }
+
+    function post($url, array $data = []) 
+    {
+        $json = json_encode($data);
+        $curl = curl_init();
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl, CURLOPT_URL, $this->url . $url);
+            curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Content-Length: '. strlen($json)));
+            curl_setopt($curl, CURLOPT_POST, true);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $json);
+            $response = curl_exec($curl);
+
+            if (!$response)
+            {
+                trigger_error(curl_error($curl));
+            }
+            curl_close($curl);
+
+            return json_decode($response, true);
+    }
+
+    function delete($url, $id)
+    {
+        $json = json_encode(['id' => $id]);
+        //    $username = Config::getUser();
+        //    $password = Config::getPassword();
+ 
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+        //    curl_setopt($curl, CURLOPT_USERPWD, "$username:$password");
+        curl_setopt($curl, CURLOPT_URL, $this->url . $url);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "DELETE");
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $json);
+        $response = curl_exec($curl);
+        if (!$response) {
+            $error = curl_error($curl);
+            if ($error) {
+                trigger_error($error);
+            }
+        }
+        curl_close($curl);
+ 
+        return json_decode($response, TRUE);;
+    }
+
+
 }
