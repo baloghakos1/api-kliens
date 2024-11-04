@@ -1,10 +1,8 @@
 <?php
 namespace App\Html;
 
-//use App\Pdf\Pdf;
+
 use App\RestApiClient\Client;
-//use PHPMailer\PHPMailer\PHPMailer;
-//use PHPMailer\PHPMailer\Exception;
 
 class Request 
 {

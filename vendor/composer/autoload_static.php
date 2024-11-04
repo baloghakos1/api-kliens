@@ -6,10 +6,6 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit86042454d32cfe58fad81b9b99444497
 {
-    public static $files = array (
-        '13d08b361a5b149e7ef94a8b017d389c' => __DIR__ . '/../..' . '/tfpdf/tfpdf.php',
-    );
-
     public static $prefixLengthsPsr4 = array (
         'A' => 
         array (

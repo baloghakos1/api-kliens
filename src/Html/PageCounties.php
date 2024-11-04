@@ -18,7 +18,7 @@ class PageCounties extends AbstractPage {
                 <tr class="sotet">
                         <th class="id-col">#</th>
                         <th>Megnevezés</th>
-                        <th style="float: right; display: flex>
+                        <th style="float: right; display: flex">
                             Művelet&nbsp;
                             <button id="btn-add" title="Új"><i class="fa fa-plus"></i></button>
                         </th>
@@ -29,7 +29,7 @@ class PageCounties extends AbstractPage {
                 self::editor();
                 echo '
                 </tr>
-        </thrad>
+        </thead>
         ';
     }
 
@@ -42,7 +42,7 @@ class PageCounties extends AbstractPage {
                 placeholders="Keres"
             >
             <input
-                type="subnit"
+                type="submit"
                 id="btn-search"
                 name="btn-search"
                 title="Keres"
@@ -52,7 +52,7 @@ class PageCounties extends AbstractPage {
     }
 
     static function editor() {
-        echo '<p>asd<p>';
+        echo '<p><p>';
     }
 
     static function tableBody(array $entities) {
@@ -71,8 +71,8 @@ class PageCounties extends AbstractPage {
                         </form>
                     </td>
                 </tr>
-                </tbody>
                 ";
             }
+        echo '</tbody>';
     }
 }

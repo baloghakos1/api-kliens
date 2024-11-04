@@ -1,6 +1,6 @@
 <?php
 
-namespace App\html;
+namespace App\Html;
 
 use App\Interfaces\PageInterface;
 
@@ -12,9 +12,11 @@ abstract class AbstractPage implements PageInterface {
         <head>
             <meta charset="utf-8">
             <meta name="viewport"
-                content = "width=device-width, initial-scale=1">
+                content = "width=device-width", initial-scale="1">
 
             <title>Posta</title>
+        </head>
+        <body>
         ';
     }
 
@@ -23,8 +25,8 @@ abstract class AbstractPage implements PageInterface {
         <nav>
             <form name="nav" method="post" action="index.php">
                 <button type="submit" name="btn-home">Kezdőlap</button>
-                <button type="sumbit" name="brn-counties">Megyék</button>
-                <button type="sumbit" name="brn-cities">Városok</button>
+                <button type="submit" name="btn-counties">Megyék</button>
+                <button type="submit" name="btn-cities">Városok</button>
             </form>
         </nav>
         ';
@@ -35,19 +37,20 @@ abstract class AbstractPage implements PageInterface {
         <footer>
 
         </footer>
+        </body>
         </html>
         ';
     }
 
     
 
-    abstract function tablehead();
+    abstract static function tablehead();
 
-    abstract function tableBody(array $entities);
+    abstract static function tableBody(array $entities);
 
-    abstract function table(array $entities);
+    abstract static function table(array $entities);
 
-    abstract function editor();
+    abstract static function editor();
 
-    abstract function SearchBar();
+    abstract static function SearchBar();
 }
