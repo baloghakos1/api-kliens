@@ -58,12 +58,9 @@ class Client implements ClientInterface {
     function delete($url, $id)
     {
         $json = json_encode(['id' => $id]);
-        //    $username = Config::getUser();
-        //    $password = Config::getPassword();
  
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
-        //    curl_setopt($curl, CURLOPT_USERPWD, "$username:$password");
         curl_setopt($curl, CURLOPT_URL, $this->url . $url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "DELETE");

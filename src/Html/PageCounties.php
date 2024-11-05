@@ -20,7 +20,7 @@ class PageCounties extends AbstractPage {
                         <th>Megnevezés</th>
                         <th style="float: right; display: flex">
                             Művelet&nbsp;
-                            <button id="btn-add" title="Új"><i class="fa fa-plus"></i></button>
+                            
                         </th>
 
                     </th>
@@ -65,9 +65,9 @@ class PageCounties extends AbstractPage {
                     <td>{$entity['id']}</td>
                     <td>{$entity['name']}</td>
                     <td class='flex float-right'>
-                        <button type='button' id='btn-edit-{$entity['id']}' onClick='$onClick' title='Módosít'>Módosít</button>
+                        <button type='button' id='btn-edit-{$entity['id']}' onClick='$onClick' title='Modosít'>Módosít</button>
                         <form method='post' action=''>
-                            <button type='submit' id='btn-del-country-{$entity['id']}' name='btn-del-country' value='{$entity['id']}' title='Töröl'>Töröl</button>
+                            <button type='submit' id='{$entity['id']}' name='btn-del-county' value='{$entity['id']}' title='Torol'>Töröl</button>
                         </form>
                     </td>
                 </tr>
