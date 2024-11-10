@@ -15,6 +15,7 @@ abstract class AbstractPage implements PageInterface {
                 content = "width=device-width", initial-scale="1">
 
             <title>Posta</title>
+            <script src="api-client.js" defer></script>
         </head>
         <body>
         ';

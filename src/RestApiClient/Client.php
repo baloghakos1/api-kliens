@@ -61,7 +61,7 @@ class Client implements ClientInterface {
  
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
-        curl_setopt($curl, CURLOPT_URL, $this->url . $url);
+        curl_setopt($curl, CURLOPT_URL, $this->url . $url . '/' .$id);
         curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($curl, CURLOPT_POSTFIELDS, $json);
