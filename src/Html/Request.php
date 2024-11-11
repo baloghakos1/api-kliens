@@ -1,81 +1,116 @@
 <?php
-namespace App\Html;
 
+namespace App\Html;
 
 use App\RestApiClient\Client;
 
-class Request 
-{
-    static function handle() {
-        switch($_SERVER["REQUEST_METHOD"]) {
+class Request {
+
+    static function handle()
+    {
+        switch ($_SERVER["REQUEST_METHOD"]) {
             case "POST":
                 self::postRequest();
                 break;
             case "GET":
-            default:
                 self::getRequest();
                 break;
-        }
-    }
-
-    private static function getRequest(){
-        $request = $_REQUEST;
-        if(isset($request['page'])){
-            $page = $request['page'];
-            switch($page){
-                case 'counties':
-                    PageCounties::table(self::getCounties());
-                    break;
-                case 'cities':
-                    break;
-            }
+            case "PUT":
+                self::putRequest();
+                break;
+            case "DELETE":
+                self::deleteRequest();
+                break;
+            default:
+                echo 'Unknown request type';
+                break;
         }
     }
 
     private static function postRequest()
     {
         $request = $_REQUEST;
-        switch ($request) 
-        {
-            case isset($request['btn-counties']) :
-            PageCounties::table (self::getCounties()) ;
-            break;
-            case isset($request['btn-save-county']) :
-                $client = new Client();
-                if (!empty($request['id']))
+        switch (true) {
+            case isset($request['btn-counties']):
+                PageCounties::table(self::getCounties());
+                break;
+
+            case isset($request['btn-search']):
+                $id = $request['needle'] ?? null;
+                if ($id) 
                 {
+                    PageCounties::table([self::getCountyById($id)]);
+                } 
+                else 
+                {
+                    echo "Nem adtál meg keresési kifejezést!";
+                }
+                break;
+            
+            case isset($request['btn-save-county']):
+                $client = new Client();
+                $data = [];         
+                if (!empty($request['id'])) {
                     $data['id'] = $request['id'];
                 }
-                if (isset($request['name']))
-                {
-                    $data['name'] = $request['name'];
-                }
-                $client->post('counties/county', $data);
-                PageCounties::table(self::getCounties());
+                $data['name'] = $request['name'];
+                $response = $client->post('counties', $data);
+                echo 'Az új megye hozzáadása sikeres!';
                 break;
+                
             case isset($request['btn-del-county']):
                 $client = new Client();
-                $response = $client->delete('counties', $request['btn-del-county']);
-                PageCounties::table(self::getCounties());
+                $id = $request['btn-del-county'] ?? null; 
+                $response = $client->delete("counties/{$id}");
+                echo 'A törlés sikeres volt!';
                 break;
-            case isset($request['btn-search']):
+
+
+            case isset($request['btn-edit-county']):
+                $id = $request['edit_county_id'];
+                $name = $request['edit_county_name'];
+                PageCounties::showModifyCounties($id,$name);
+                break;
+    
+            case isset($request['btn-save-modified-county']):
                 $client = new Client();
-                $response = $client->post('counties/search', ['needle' => $request['needle']]);
-                $entities = [];
-                if (isset($response['data']))
-                {
-                    $entities = $response['data'];
+                $id = $request['modified_county_id'];
+                $name = $request['modified_county_name'];
+    
+                if ($id && $name) {
+                    $data = ['id' => $id, 'name' => $name];
+                    $response = $client->put("counties/{$id}", $data);
+                    echo 'A módosítás sikeres!';
                 }
-                PageCounties::table($entities);
                 break;
         }
-        
     }
 
-    private static function getCounties(): array{
+    private static function getRequest()
+    {
+    }
+
+    private static function putRequest()
+    {
+    }
+
+    private static function deleteRequest()
+    {
+    }
+
+    private static function getCountyById($id) : ?array
+    {
+        $client = new Client();
+        $response = $client->get("counties/{$id}");
+
+        return $response['data'] ?? null;
+    }
+
+    private static function getCounties() : ?array
+    {
         $client = new Client();
         $response = $client->get('counties');
 
-        return $response['data'];
-    }
+        return $response['data'] ?? null;
+    }   
 }

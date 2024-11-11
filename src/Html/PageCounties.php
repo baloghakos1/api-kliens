@@ -1,78 +1,96 @@
 <?php
+
 namespace App\Html;
 
-class PageCounties extends AbstractPage {
-    static function table(array $entities) {
+class PageCounties extends AbstractPage
+{
+
+    static function table(array $entities)
+    {
         echo '<h1>Megyék</h1>';
-        //self::searchBar();
-        echo '<table id="counties-table">';
+        echo '<table id = "counties-table">';
         self::tableHead();
         self::tableBody($entities);
-        echo '</table>';
-
+        echo "</table>";
     }
 
-    static function tableHead() {
+    static function tableHead()
+    {
         echo '
         <thead>
-                <tr class="sotet">
-                        <th class="id-col">#</th>
-                        <th>Megnevezés</th>
-                        <th style="float: right; display: flex">
-                            Művelet&nbsp;
-                            
-                        </th>
+            <th class = "id-col">#</th>
+            <th> Megnevezés </th>
+            <th style = "float: right; display: flex">
+                Művelet&nbsp;
+                <button id = "btn-add" title = "Új"></button>';
+
+        echo '
+                </th>
+            </tr>
+            <tr id = "editor" class = "hidden"">';
+            self::editor();
+            echo '
+            </tr>
+            </thead>
+            ';
+            
+    }
+
+    static function editor()
+    {
+        echo'
+                <div class= "editor">
+                    <th></th>
+                    <th>
+                        <form name="county-editor" method="post" action="" >
+                            <input type="hidden" id="id" name="id">
+                            <input type="search" id="name" name="name" placeholder="Megye" required>
+                            <button type="submit" id="btn-save-county" name="btn-save-county" title="Ment">Mentés</button>
+                        </form>
+                    </th>
+    
+                    <th class="flex">
 
                     </th>
-                </tr>
-                <tr id="editor" class="hidden">';
-                self::editor();
-                echo '
-                </tr>
-        </thead>
+                </div>
         ';
     }
 
-    static function SearchBar() {
-        echo '
-        <form method="post" action="">
-            <input
-                type="search"
-                name="needle"
-                placeholders="Keres"
-            >
-            <input
-                type="submit"
-                id="btn-search"
-                name="btn-search"
-                title="Keres"
-            >
-        </form>
-        ';
-    }
-
-    static function editor() {
-        echo '<p><p>';
-    }
-
-    static function tableBody(array $entities) {
+    static function tableBody(array $entities)
+    {
         echo '<tbody>';
-            $i = 0;
-            foreach($entities as $entity){
-                $onClick = sprintf('btnEditCountyOnClick(%d, "%s")', $entity['id'], $entity['name']);
-                echo "
-                <tr class='".(++$i % 2 ? "odd" : "even")."'>
-                    <td>{$entity['id']}</td>
-                    <td>{$entity['name']}</td>
-                    <td class='flex float-right'>
-                        <button type='button' id='btn-edit-{$entity['id']}' onClick='$onClick' title='Modosít'>Módosít</button>
-                        <form method='post' action=''>
-                            <button type='submit' id='{$entity['id']}' name='btn-del-county' value='{$entity['id']}' title='Torol'>Töröl</button>
+        $i = 0;
+        foreach($entities as $entity )
+        {
+            echo "
+                <tr class='" . (++$i % 2 ? "odd" : "even") . "'>
+                    <td class = 'SorszamMezo'>{$entity['id']}</td>
+                    <td class = 'MegyeMezo';>{$entity['name']}</td>
+                    <td class = 'flex float-right'>
+                        <form method='post' action='' class = 'ModositasBtn'>
+                            <input type='hidden' name='edit_county_id' value='{$entity['id']}'>
+                            <input type='hidden' name='edit_county_name' value='{$entity['name']}'>
+                            <button type='submit' name='btn-edit-county' title='Módosít'>Módosítás</button>
+                        </form>
+                        <form method='post' action='' class = 'TorlesBtn'>
+                            <button type='submit' id='btn-del-county-{$entity['id']}' name='btn-del-county' value='{$entity['id']}' title='Töröl'>Törlés</button>
                         </form>
                     </td>
-                </tr>
-                ";
-            }
+                </tr>";
+
+        }
         echo '</tbody>';
     }
+
+    static function showModifyCounties($id = null, $name = '')
+{
+    echo '
+        <form method="post" action="">
+            <input type="hidden" name="modified_county_id" value="' . htmlspecialchars($id) . '">
+            <label for="modified_county_name">Megye neve:</label>
+            <input type="text" name="modified_county_name" value="' . htmlspecialchars($name) . '">
+            <button type="submit" name="btn-save-modified-county">Mentés</button>
+        </form>';
 }
+
+} 

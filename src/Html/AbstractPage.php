@@ -1,51 +1,47 @@
 <?php
-
+ 
 namespace App\Html;
-
+ 
 use App\Interfaces\PageInterface;
-
-abstract class AbstractPage implements PageInterface {
-    static function head() {
-        echo '
-        <!doctype html>
+ 
+abstract class AbstractPage implements PageInterface
+{
+    static function head()
+    {
+        echo '<!DOCTYPE html>
         <html lang="hu-hu">
         <head>
-            <meta charset="utf-8">
-            <meta name="viewport"
-                content = "width=device-width", initial-scale="1">
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Client</title>
 
-            <title>Posta</title>
-            <script src="api-client.js" defer></script>
-        </head>
-        <body>
-        ';
+
+        </head>';
     }
 
-    static function nav() {
+    static function nav()
+    {
         echo '
         <nav>
-            <form name="nav" method="post" action="index.php">
-                <button type="submit" name="btn-home">Kezdőlap</button>
-                <button type="submit" name="btn-counties">Megyék</button>
-                <button type="submit" name="btn-cities">Városok</button>
+            <form name = "nav" method = "post" action = "index.php">
+                <button type = "submit" name = "btn-home">
+                    Kezdőlap
+                </button>
+                <button type = "submit" name = "btn-counties">Megyék</button>
+                <button type = "submit" name = "btn-cities">Városok</button>
             </form>
-        </nav>
-        ';
+        </nav>';
     }
 
-    static function footer() {
+    static function footer()
+    {
         echo '
         <footer>
-
         </footer>
-        </body>
-        </html>
-        ';
+        </html>';
     }
 
-    
-
-    abstract static function tablehead();
+    abstract static function tableHead();
 
     abstract static function tableBody(array $entities);
 
@@ -53,5 +49,9 @@ abstract class AbstractPage implements PageInterface {
 
     abstract static function editor();
 
-    abstract static function SearchBar();
+    static function searchbar()
+    {
+    }
+
+
 }
