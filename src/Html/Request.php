@@ -5,7 +5,6 @@ namespace App\Html;
 use App\RestApiClient\Client;
 
 class Request {
-
     static function handle()
     {
         switch ($_SERVER["REQUEST_METHOD"]) {
@@ -34,7 +33,10 @@ class Request {
             case isset($request['btn-counties']):
                 PageCounties::table(self::getCounties());
                 break;
-
+            case isset($request['btn-cities']):
+                PageCities::table(self::getCities());
+                break;
+            /*
             case isset($request['btn-search']):
                 $id = $request['needle'] ?? null;
                 if ($id) 
@@ -46,7 +48,7 @@ class Request {
                     echo "Nem adtál meg keresési kifejezést!";
                 }
                 break;
-            
+            */
             case isset($request['btn-save-county']):
                 $client = new Client();
                 $data = [];         
@@ -110,6 +112,14 @@ class Request {
     {
         $client = new Client();
         $response = $client->get('counties');
+
+        return $response['data'] ?? null;
+    }
+
+    private static function getCities() : ?array
+    {
+        $client = new Client();
+        $response = $client->get('cities');
 
         return $response['data'] ?? null;
     }   
