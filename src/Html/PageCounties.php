@@ -5,24 +5,23 @@ namespace App\Html;
 class PageCounties extends AbstractPage
 {
 
-    static function table(array $entities)
+    static function table(array $entities, array $entities2)
     {
         echo '<h1>Megyék</h1>';
         echo '<table id = "counties-table">';
-        self::tableHead();
+        self::tableHead($entities);
         self::tableBody($entities);
         echo "</table>";
     }
 
-    static function tableHead()
+    static function tableHead(array $entities)
     {
         echo '
         <thead>
             <th class = "id-col">#</th>
             <th> Megnevezés </th>
             <th style = "float: right; display: flex">
-                Művelet&nbsp;
-                <button id = "btn-add" title = "Új"></button>';
+                Művelet&nbsp;';
 
         echo '
                 </th>
@@ -60,13 +59,13 @@ class PageCounties extends AbstractPage
     {
         echo '<tbody>';
         $i = 0;
-        foreach($entities as $entity )
+        foreach($entities as $entity)
         {
             echo "
                 <tr class='" . (++$i % 2 ? "odd" : "even") . "'>
                     <td class = 'SorszamMezo'>{$entity['id']}</td>
                     <td class = 'MegyeMezo';>{$entity['name']}</td>
-                    <td class = 'flex float-right'>
+                    <td>
                         <form method='post' action='' class = 'ModositasBtn'>
                             <input type='hidden' name='edit_county_id' value='{$entity['id']}'>
                             <input type='hidden' name='edit_county_name' value='{$entity['name']}'>

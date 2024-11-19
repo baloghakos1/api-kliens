@@ -31,10 +31,13 @@ class Request {
         $request = $_REQUEST;
         switch (true) {
             case isset($request['btn-counties']):
-                PageCounties::table(self::getCounties());
+                PageCounties::table(self::getCounties(), self::getCounties());
                 break;
             case isset($request['btn-cities']):
-                PageCities::table(self::getCities());
+                PageCities::table(self::getCounties(), self::getCities());
+                break;
+            case isset($request['btn-select-county']):
+                PageCities::table(self::getCounties(), self::getCities());
                 break;
             /*
             case isset($request['btn-search']):
@@ -87,7 +90,7 @@ class Request {
                 break;
         }
     }
-
+    /*
     private static function getRequest()
     {
     }
@@ -99,6 +102,7 @@ class Request {
     private static function deleteRequest()
     {
     }
+    */
 
     private static function getCountyById($id) : ?array
     {
