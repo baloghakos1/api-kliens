@@ -37,8 +37,15 @@ class Request {
                 PageCities::table(self::getCounties(), self::getCities());
                 break;
             case isset($request['btn-select-county']):
-                $id = 4;
-                PageCities::table(self::getCounties(), self::getCities($id));
+                $a = self::getCities();
+                $b = $request['counties'];
+                $c = []; 
+                foreach($a as $ok) {
+                    if($ok[name] == b) {
+                        //c-be belehelyezni a maradtakat
+                    }
+                }
+                PageCities::table(self::getCounties(), $b);
                 break;
             /*
             case isset($request['btn-search']):
@@ -127,5 +134,5 @@ class Request {
         $response = $client->get('cities');
 
         return $response['data'] ?? null;
-    }   
+    }
 }

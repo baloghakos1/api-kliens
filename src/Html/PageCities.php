@@ -18,15 +18,16 @@ class PageCities extends AbstractPage
     {
         echo '
         <thead>
+            <form name="county-select" method="post" action="" >
             <label for="counties">Válassz megyét:</label>
 
             <select name="counties" id="counties">';
             foreach($entities as $entity) {
-                echo "<option value='$entity[id]'>$entity[name]</option>";
+                echo "<option value='$entity[name]'>$entity[name]</option>";
             }
         echo '
             </select>
-            <form name="county-select" method="post" action="" >
+            
                 <button type="submit" id="btn-select-county" name="btn-select-county" title="OK">OK</button>
             </form>
             <th>id</th>
