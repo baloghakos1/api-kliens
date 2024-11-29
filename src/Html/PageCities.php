@@ -31,8 +31,8 @@ class PageCities extends AbstractPage
                 <button type="submit" id="btn-select-county" name="btn-select-county" title="OK">OK</button>
             </form>
             <th>id</th>
-            <th>zip kód</th>
             <th>Megnevezés</th>
+            <th>zip kód</th>
             <th>
                 Művelet&nbsp;';
 
@@ -57,8 +57,8 @@ class PageCities extends AbstractPage
             echo "
                 <tr class='" . (++$i % 2 ? "odd" : "even") . "'>
                     <td class = 'SorszamMezo'>{$entity['id']}</td>
-                    <td class = 'ZipCodeMezo';>{$entity['zip_code']}</td>
                     <td class = 'CityMezo';>{$entity['city']}</td>
+                    <td class = 'ZipCodeMezo';>{$entity['zip_code']}</td>
                     <td>
                         <form method='post' action='' class = 'ModositasBtn'>
                             <input type='hidden' name='edit_city_id' value='{$entity['id']}'>

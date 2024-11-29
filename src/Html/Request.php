@@ -39,13 +39,18 @@ class Request {
             case isset($request['btn-select-county']):
                 $a = self::getCities();
                 $b = $request['counties'];
-                $c = []; 
-                foreach($a as $ok) {
-                    if($ok[name] == b) {
-                        //c-be belehelyezni a maradtakat
+                $c = array();
+                $x = 0;
+                for($i = 0; $i < count($a); $i++) {
+                    if($a[$i]["name"] == $b) {
+                        $c[$x] = array();
+                        $c[$x]["id"] = $a[$i]["id"];
+                        $c[$x]["zip_code"] = $a[$i]["zip_code"];
+                        $c[$x]["city"] = $a[$i]["city"];
+                        $x += 1;
                     }
                 }
-                PageCities::table(self::getCounties(), $b);
+                PageCities::table(self::getCounties(), $c);
                 break;
             /*
             case isset($request['btn-search']):
