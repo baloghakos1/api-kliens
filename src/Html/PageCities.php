@@ -23,7 +23,7 @@ class PageCities extends AbstractPage
 
             <select name="counties" id="counties">';
             foreach($entities as $entity) {
-                echo "<option value='$entity[name]'>$entity[name]</option>";
+                echo "<option value='$entity[id]'>$entity[name]</option>";
             }
         echo '
             </select>
