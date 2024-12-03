@@ -37,7 +37,8 @@ class Request {
                 PageCities::table(self::getCounties(), self::getCities());
                 break;
             case isset($request['btn-select-county']):
-                PageCities::table(self::getCounties(), self::getCities());
+                $id = $_POST['counties'];
+                PageCities::table(self::getCounties(), self::getCitiesByCounty($id));
                 break;
             /*
             case isset($request['btn-search']):
@@ -124,6 +125,13 @@ class Request {
     {
         $client = new Client();
         $response = $client->get('cities');
+
+        return $response['data'] ?? null;
+    }
+    private static function getCitiesByCounty($countyId) : ?array
+    {
+        $client = new Client();
+        $response = $client->get("cities/{$countyId}");
 
         return $response['data'] ?? null;
     }

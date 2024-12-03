@@ -11,6 +11,7 @@ class PageCities extends AbstractPage
         echo '<table id = "Cities-table">';
         self::tableHead($entities);
         self::tableBody($entities2);
+        var_dump($entities2);
         echo "</table>";
     }
 
@@ -49,10 +50,10 @@ class PageCities extends AbstractPage
 
     }
 
-    static function tableBody(array $entities){
+    static function tableBody(array $entities2){
         echo '<tbody>';
         $i = 0;
-        foreach($entities as $entity)
+        foreach($entities2 as $entity)
         {
             echo "
                 <tr class='" . (++$i % 2 ? "odd" : "even") . "'>
