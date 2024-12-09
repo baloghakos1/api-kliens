@@ -89,6 +89,13 @@ class Request {
                     echo 'A módosítás sikeres!';
                 }
                 break;
+            case isset($request['btn-del-city']):
+                $client = new Client();
+                $id = $request['btn-del-city'] ?? null; 
+                $response = $client->delete("cities/{$id}");
+                echo 'A törlés sikeres volt!';
+                break;
+            
         }
     }
     
@@ -131,7 +138,7 @@ class Request {
     private static function getCitiesByCounty($countyId) : ?array
     {
         $client = new Client();
-        $response = $client->get("cities/{$countyId}");
+        $response = $client->get("counties/{$countyId}/cities");
 
         return $response['data'] ?? null;
     }

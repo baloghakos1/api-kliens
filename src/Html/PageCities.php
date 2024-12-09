@@ -11,7 +11,6 @@ class PageCities extends AbstractPage
         echo '<table id = "Cities-table">';
         self::tableHead($entities);
         self::tableBody($entities2);
-        var_dump($entities2);
         echo "</table>";
     }
 
