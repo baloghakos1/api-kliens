@@ -5,16 +5,16 @@ namespace App\Html;
 class PageCities extends AbstractPage
 {
 
-    static function table(array $entities, array $entities2)
+    static function table(array $entities, array $entities2, int $a)
     {
         echo '<h1>Városok</h1>';
         echo '<table id = "Cities-table">';
-        self::tableHead($entities);
+        self::tableHead($entities, $a);
         self::tableBody($entities2);
         echo "</table>";
     }
 
-    static function tableHead(array $entities)
+    static function tableHead(array $entities, int $a)
     {
         echo '
         <thead>
@@ -41,7 +41,7 @@ class PageCities extends AbstractPage
             </th>
             </tr>
             <tr id = "editor" class = "hidden"">';
-            self::editor();
+            self::editor($a);
             echo '
             </tr>
             </thead>
@@ -62,6 +62,8 @@ class PageCities extends AbstractPage
                     <td>
                         <form method='post' action='' class = 'ModositasBtn'>
                             <input type='hidden' name='edit_city_id' value='{$entity['id']}'>
+                            <input type='hidden' name='edit_city_name' value='{$entity['city']}'>
+                            <input type='hidden' name='edit_city_zip' value='{$entity['zip_code']}'>
                             <button type='submit' name='btn-edit-city' title='Módosít'>Módosítás</button>
                         </form>
                         <form method='post' action='' class = 'TorlesBtn'>
@@ -74,5 +76,39 @@ class PageCities extends AbstractPage
         echo '</tbody>';
     }
 
-    static function editor(){}
+    static function editor(int $a)
+    {
+        echo'
+                <div class= "editor">
+                    <th></th>
+                    <th>
+                        <form name="city-editor" method="post" action="" >
+                            <input type="hidden" id="id" name="id">
+                            <input type="hidden" id="id_county" name="id_county" value="' . $a .'">
+                            <input type="search" id="city" name="city" placeholder="Város" required>
+                            <input type="search" id="zip_code" name="zip_code" placeholder="Zip kód" required>
+                            <button type="submit" id="btn-save-city" name="btn-save-city" title="Ment">Mentés</button>
+                        </form>
+                    </th>
+    
+                    <th class="flex">
+
+                    </th>
+                </div>
+        ';
+    }
+
+    static function showModifyCities($id = null, $name = '', $zip = 0)
+    {
+    echo '
+        <form method="post" action="">
+            <input type="hidden" name="modified_city_id" value="' . htmlspecialchars($id) . '">
+            <label for="modified_city_name">Város neve:</label>
+            <input type="text" name="modified_city_name" value="' . htmlspecialchars($name) . '">
+            <label for="modified_city_name">Város zip kódja:</label>
+            <input type="number" name="modified_city_zip" value="' . htmlspecialchars($zip) . '">
+            <button type="submit" name="btn-save-modified-city">Mentés</button>
+        </form>';
+    }
+
 }

@@ -5,16 +5,16 @@ namespace App\Html;
 class PageCounties extends AbstractPage
 {
 
-    static function table(array $entities, array $entities2)
+    static function table(array $entities, array $entities2, $a)
     {
         echo '<h1>Megyék</h1>';
         echo '<table id = "counties-table">';
-        self::tableHead($entities);
+        self::tableHead($entities, $a);
         self::tableBody($entities);
         echo "</table>";
     }
 
-    static function tableHead(array $entities)
+    static function tableHead(array $entities, int $a)
     {
         echo '
         <thead>
@@ -27,7 +27,7 @@ class PageCounties extends AbstractPage
                 </th>
             </tr>
             <tr id = "editor" class = "hidden"">';
-            self::editor();
+            self::editor($a);
             echo '
             </tr>
             </thead>
@@ -35,7 +35,7 @@ class PageCounties extends AbstractPage
             
     }
 
-    static function editor()
+    static function editor($a)
     {
         echo'
                 <div class= "editor">
@@ -82,7 +82,7 @@ class PageCounties extends AbstractPage
     }
 
     static function showModifyCounties($id = null, $name = '')
-{
+    {
     echo '
         <form method="post" action="">
             <input type="hidden" name="modified_county_id" value="' . htmlspecialchars($id) . '">
@@ -90,6 +90,6 @@ class PageCounties extends AbstractPage
             <input type="text" name="modified_county_name" value="' . htmlspecialchars($name) . '">
             <button type="submit" name="btn-save-modified-county">Mentés</button>
         </form>';
-}
+    }
 
 } 

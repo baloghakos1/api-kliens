@@ -31,14 +31,14 @@ class Request {
         $request = $_REQUEST;
         switch (true) {
             case isset($request['btn-counties']):
-                PageCounties::table(self::getCounties(), self::getCounties());
+                PageCounties::table(self::getCounties(), self::getCounties(), 0);
                 break;
             case isset($request['btn-cities']):
-                PageCities::table(self::getCounties(), self::getCities());
+                PageCities::table(self::getCounties(), self::getCities(), 0);
                 break;
             case isset($request['btn-select-county']):
                 $id = $_POST['counties'];
-                PageCities::table(self::getCounties(), self::getCitiesByCounty($id));
+                PageCities::table(self::getCounties(), self::getCitiesByCounty($id), $id);
                 break;
             /*
             case isset($request['btn-search']):
@@ -89,11 +89,52 @@ class Request {
                     echo 'A módosítás sikeres!';
                 }
                 break;
+
             case isset($request['btn-del-city']):
                 $client = new Client();
                 $id = $request['btn-del-city'] ?? null; 
                 $response = $client->delete("cities/{$id}");
                 echo 'A törlés sikeres volt!';
+                break;
+
+            case isset($request['btn-edit-city']):
+                $id = $request['edit_city_id'];
+                $name = $request['edit_city_name'];
+                $zip = $request['edit_city_zip'];
+                PageCities::showModifyCities($id,$name,$zip);
+                break;
+
+            case isset($request['btn-save-modified-city']):
+                $client = new Client();
+                $id = $request['modified_city_id'];
+                $name = $request['modified_city_name'];
+                $zip = $request['modified_city_zip'];
+    
+                if ($id && $name) {
+                    $data = ['id' => $id, 'city' => $name, 'zip_code' => $zip];
+                    $response = $client->put("cities/{$id}", $data);
+                    echo 'A módosítás sikeres!';
+                }
+                break;
+            
+            case isset($request['btn-save-city']):
+                if ($request['id_county'] == 0) {
+                    echo 'Válassz megyét!';
+                }
+                else {
+                    $client = new Client();
+                $data = [];         
+                if (!empty($request['id'])) {
+                    $data['id'] = $request['id'];
+                }
+                if (!empty($request['id_county'])) {
+                    $data['id_county'] = $request['id_county'];
+                }
+                $data['city'] = $request['city'];
+                $data['zip_code'] = $request['zip_code'];
+                $response = $client->post('cities', $data);
+                echo 'Az új város hozzáadása sikeres!';
+                }
                 break;
             
         }
