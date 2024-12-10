@@ -41,11 +41,11 @@ abstract class AbstractPage implements PageInterface
         </html>';
     }
 
-    abstract static function tableHead(array $entities, int $a);
+    abstract static function tableHead(array $entities, int $a, array $abc);
 
     abstract static function tableBody(array $entities);
 
-    abstract static function table(array $entities, array $entities2, int $a);
+    abstract static function table(array $entities, array $entities2, int $a, array $abc);
 
     abstract static function editor(int $a);
 

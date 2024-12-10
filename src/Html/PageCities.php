@@ -5,16 +5,16 @@ namespace App\Html;
 class PageCities extends AbstractPage
 {
 
-    static function table(array $entities, array $entities2, int $a)
+    static function table(array $entities, array $entities2, int $a, $abc)
     {
         echo '<h1>Városok</h1>';
         echo '<table id = "Cities-table">';
-        self::tableHead($entities, $a);
+        self::tableHead($entities, $a, $abc);
         self::tableBody($entities2);
         echo "</table>";
     }
 
-    static function tableHead(array $entities, int $a)
+    static function tableHead(array $entities, int $a, $abc)
     {
         echo '
         <thead>
@@ -23,19 +23,31 @@ class PageCities extends AbstractPage
 
             <select name="counties" id="counties">';
             foreach($entities as $entity) {
-                echo "<option value='$entity[id]'>$entity[name]</option>";
+                if($entity[id] == $a) {
+                    echo "<option value='$entity[id]' selected>$entity[name]</option>";
+                }
+                else {
+                    echo "<option value='$entity[id]'>$entity[name]</option>";
+                }
+                
             }
         echo '
             </select>
             
                 <button type="submit" id="btn-select-county" name="btn-select-county" title="OK">OK</button>
-            </form>
-            <th>id</th>
+            </form>';
+        echo '<br><br>';
+        if($abc != null) {
+            foreach($abc as $betu) {
+                echo "<button>$betu[abc]</button>";
+            }
+        }
+        echo '<th>id</th>
             <th>Megnevezés</th>
             <th>zip kód</th>
             <th>
                 Művelet&nbsp;';
-
+        
         echo '
         
             </th>

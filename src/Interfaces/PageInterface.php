@@ -9,11 +9,11 @@ interface PageInterface
  
     static  function footer();
  
-    static function tableHead(array $entities, int $a);
+    static function tableHead(array $entities, int $a, array $abc);
  
     static function tableBody(array $entities);
  
-    static function table(array $entities, array $entities2, int $a);
+    static function table(array $entities, array $entities2, int $a, array $abc);
  
     static function searchbar();
 }

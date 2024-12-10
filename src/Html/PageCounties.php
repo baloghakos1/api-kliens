@@ -5,16 +5,16 @@ namespace App\Html;
 class PageCounties extends AbstractPage
 {
 
-    static function table(array $entities, array $entities2, $a)
+    static function table(array $entities, array $entities2, $a, $abc)
     {
         echo '<h1>Megyék</h1>';
         echo '<table id = "counties-table">';
-        self::tableHead($entities, $a);
+        self::tableHead($entities, $a, $abc);
         self::tableBody($entities);
         echo "</table>";
     }
 
-    static function tableHead(array $entities, int $a)
+    static function tableHead(array $entities, int $a, $abc)
     {
         echo '
         <thead>
