@@ -39,7 +39,12 @@ class PageCities extends AbstractPage
         echo '<br><br>';
         if($abc != null) {
             foreach($abc as $betu) {
-                echo "<button>$betu[abc]</button>";
+                echo '
+                    <form name="ABC-'. $betu['abc'] .' "method="post" action="">
+                    <input type="hidden" name="ABC-input" value='. $a .'>
+                    <button type="sumbit" name="ABC-btn" id="ABC-btn" value= '.$betu['abc'].'>' . $betu['abc'] .'</button>
+                    </form>
+                    ';
             }
         }
         echo '<th>id</th>

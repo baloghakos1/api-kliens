@@ -40,6 +40,11 @@ class Request {
                 $id = $_POST['counties'];
                 PageCities::table(self::getCounties(), self::getCitiesByCounty($id), $id, self::getABC($id));
                 break;
+            case isset($request['ABC-btn']):
+                $id = $request['ABC-input'];
+                $betu = $request['ABC-btn'];
+                PageCities::table(self::getCounties(), self::getCitiesByABC($id, $betu), $id, self::getABC($id));
+                break;
             /*
             case isset($request['btn-search']):
                 $id = $request['needle'] ?? null;
@@ -188,6 +193,14 @@ class Request {
     {
         $client = new Client();
         $response = $client->get("counties/{$countyId}/cities/ABC");
+
+        return $response['data'] ?? null;
+    }
+
+    private static function getCitiesByABC($countyId, $betu) : ?array
+    {
+        $client = new Client();
+        $response = $client->get("counties/{$countyId}/cities/{$betu}/betu");
 
         return $response['data'] ?? null;
     }
