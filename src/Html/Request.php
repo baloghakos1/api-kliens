@@ -200,7 +200,8 @@ class Request {
     private static function getCitiesByABC($countyId, $betu) : ?array
     {
         $client = new Client();
-        $response = $client->get("counties/{$countyId}/cities/{$betu}/betu");
+        $code_betu = rawurlencode($betu);
+        $response = $client->get("counties/{$countyId}/cities/{$code_betu}/betu");
 
         return $response['data'] ?? null;
     }
